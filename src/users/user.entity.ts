@@ -1,27 +1,37 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import { BaseEntity, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Post } from './../posts/post.entity';
 
 export enum Roles {
     user = 'User',
     admin = 'Admin',
   }
 
-@Entity()
+@Entity({ name: 'users' })
 export class User extends BaseEntity{
     
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    firstName: string;
+    FirstName: string;
 
     @Column()
-    lastName: string;
+    LastName: string;
 
     @Column({length: 50, unique: true})
-    email: string
+    Email: string
 
     @Column({type: 'enum', enum: Roles, default: Roles.user })
-    role: Roles
+    Role: Roles
+
+    // @OneToMany(() => Post, post => post.UserOfPost)
+    // PostsOfUser: Post[]
+
+    @OneToMany(
+      type => Post,
+      (post: Post) => post.user,
+      { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
+    )
+    posts: Post[];
     
 }
