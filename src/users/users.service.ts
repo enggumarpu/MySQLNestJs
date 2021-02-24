@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
+import { Post } from './../posts/post.entity';
+
 
 
 @Injectable()
@@ -14,6 +16,9 @@ export class UsersService {
     }
     async getAllUsers(){
         return this.userRepo.find();
+    }
+    async getPostsOfUser(id: number): Promise<Post>{
+        return this.userRepo.getPostsOfUser(id);
     }
     
 

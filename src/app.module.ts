@@ -16,7 +16,7 @@ import { Post } from './posts/post.entity';
       port: 3306,
       username: 'root',
       dropSchema: true,
-      password: '5454',
+      password: '030698',
       database: 'testnest',
       entities: [User, Post],
       synchronize: true,

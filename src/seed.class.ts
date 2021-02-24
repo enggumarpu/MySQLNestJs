@@ -8,7 +8,7 @@ import { internet, name, random, lorem } from 'faker';
 
 export class Seed{
 
-    private users: Array<Partial<User>>;
+  private users: Array<User>;
     private posts: Array<Partial<Post>>;
     constructor(
         private readonly entityManager: EntityManager){
@@ -23,7 +23,7 @@ async fakeIt<T>(entity: any): Promise<void> {
           return this.addData(
             this.userData(),
             entity,
-            (savedData: Array<Partial<User>>) => (this.users = savedData),
+            (savedData: Array<User>) => (this.users = savedData),
           );
         case Post:
           return this.addData(
@@ -51,8 +51,8 @@ private postData(): Array<Partial<Post>> {
     return Array.from({length: 5}).map<Partial<Post>>(() => ({
       Body: lorem.paragraphs(),
       Title: lorem.words(),
-      //tslintdisable-next-line no-console
       user: random.arrayElement(this.users)
+      //user: random.arrayElement(this.users)
 
       //user: random.arrayElement(this.users),
     }));
@@ -70,12 +70,12 @@ private async addData<T>(
     fun?: (savedData: Array<Partial<T>>) => void,
   ): Promise<void> {
     return this.entityManager
-      .save<T, T>(entity, data as any)
-      .then((savedData: Array<Partial<T>>) => {
+    .save<T, T>(entity, data as any)
+    .then((savedData: Array<T>) => {
         if (fun) {
           fun(savedData);
         }
-        console.log(savedData);
+        //console.log(savedData);
       })
       .catch(console.error);
   }

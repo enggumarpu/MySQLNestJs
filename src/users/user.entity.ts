@@ -28,10 +28,11 @@ export class User extends BaseEntity{
     // PostsOfUser: Post[]
 
     @OneToMany(
-      type => Post,
+      () => Post,
       (post: Post) => post.user,
       { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
     )
     posts: Post[];
+    
     
 }
