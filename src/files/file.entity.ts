@@ -15,6 +15,9 @@ export class File extends BaseEntity{
     ModifiedFileName: string
 
     @Column()
+    Extension: string
+
+    @Column()
     Size: number
 
     @ManyToOne(
