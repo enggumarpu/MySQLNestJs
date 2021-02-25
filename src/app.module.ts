@@ -8,6 +8,7 @@ import { PostsModule } from './posts/posts.module';
 import { Post } from './posts/post.entity';
 import { PostsController } from './posts/posts.controller';
 import { PostsService } from './posts/posts.service';
+import { File } from './files/file.entity';
 
 
 @Module({
@@ -20,7 +21,7 @@ import { PostsService } from './posts/posts.service';
       dropSchema: true,
       password: '5454',
       database: 'testnest',
-      entities: [User, Post],
+      entities: [User, Post, File],
       synchronize: true,
     }),
     UsersModule,

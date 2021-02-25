@@ -1,5 +1,6 @@
 import { BaseEntity, Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Post } from './../posts/post.entity';
+import { File } from './../files/file.entity';
 
 export enum Roles {
     user = 'User',
@@ -33,6 +34,13 @@ export class User extends BaseEntity{
       { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
     )
     posts: Post[];
+
+    @OneToMany(
+      () => File,
+      (file: File) => file.user,
+      { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
+    )
+    files: File[];
     
     
 }

@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { User } from '../users/user.entity';
+import { File } from './../files/file.entity';
 
 @Entity({ name: 'posts' })
 export class Post extends BaseEntity{
@@ -24,6 +25,13 @@ export class Post extends BaseEntity{
       )
       @JoinColumn({ name: 'user_id' })
       user: User;
+
+      @OneToMany(
+        () => File,
+        (file: File) => file.post,
+        { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
+      )
+      files: File[];
 
 }
 
