@@ -18,7 +18,7 @@ export class UsersController {
         return this.userService.getAllUsers();
     }
     @Get(':id')
-     getPostsOfUser(@Param('id') id: number): Promise<Post>{
+     getPostsOfUser(@Param('id') id: number): Promise<Post[]>{
          return this.userService.getPostsOfUser(id);
      }
 }

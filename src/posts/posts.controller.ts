@@ -19,4 +19,5 @@ export class PostsController {
     // getPostsOfUser(@Param('id') id: number): Promise<Post>{
     //     return this.postService.getPostsOfUser(id);
     // }
+    
 }

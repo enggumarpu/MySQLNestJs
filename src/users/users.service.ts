@@ -17,10 +17,12 @@ export class UsersService {
     async getAllUsers(){
         return this.userRepo.find();
     }
-    async getPostsOfUser(id: number): Promise<Post>{
-        return this.userRepo.getPostsOfUser(id);
-    }
-    
+    // async getPostsOfUser(id: number): Promise<Post>{
+    //     return this.userRepo.getPostsOfUser(id);
+    // }
+    async getPostsOfUser(id: number): Promise<Post[]>{
+             return this.userRepo.getPostsOfUser(id);
+        }
 
 
 
