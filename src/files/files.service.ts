@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {File }from './file.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Post } from 'src/posts/post.entity';
 
 
 // import { CreateFileDto } from './dto/create-file.dto';

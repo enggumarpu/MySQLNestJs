@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, HttpException, HttpStatus } from '@nestjs/common';
 import { FileInterceptor,  } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
+import * as mime from 'mime-types';
+
 
 
 
@@ -48,25 +50,31 @@ export class FilesController {
 // }
 @UseInterceptors(
   FileInterceptor('image', {
+    // Check the mimetypes to allow for upload
+    fileFilter: (req: any, file: any, cb: any) => {
+      if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+          // Allow storage of file
+          cb(null, true);
+      } else {
+          // Reject file
+          //let ext = mime.extension(file.mimetype);
+          
+          cb(new HttpException(`Unsupported file type ${file.originalname}`, HttpStatus.BAD_REQUEST), false);
+      }
+  },
     storage: diskStorage({
       destination: './uploads',
       filename: (req, file, callback) => {
         const name = file.originalname.split('.')[0];
         const [, fileExtName] = file.mimetype.split('/');
         const randomName = Array(4).fill(null).map(() => Math.round(Math.random() * 16).toString(16)).join('');
-          callback(null, `${name}-${randomName}${fileExtName}`);
+          callback(null, `${name}-${randomName}.${fileExtName}`);
       }
     }),
-    // fileFilter: () => (req, file, callback) => {
-    //   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    //     return callback(new Error('Only image files are allowed!'), false);
-    //   }
-    //   callback(null, true);
-    // },
     limits: {
       //fileSize: 1e7, // the max file size in bytes, here it's 100MB,
       files: 1,
-    }
+    },
   }),
 )
 @Post('upload')
@@ -79,5 +87,20 @@ async uploadFile(@UploadedFile() file){
   
   return response;
 }
+
+// async uploadMultipleFiles(@UploadedFile() files) {
+//   const response = [];
+//   files.forEach(file => {
+//     const fileReponse = {
+//       originalname: file.originalname,
+//       filename: file.filename,
+//     };
+//     response.push(fileReponse);
+//   });
+//   return response;
+// }
+
+
+
 
 }
