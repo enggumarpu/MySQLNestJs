@@ -1,6 +1,6 @@
 import { EntityManager } from "typeorm";
 import { User, Roles } from './users/user.entity';
-import { Post } from './posts/post.entity';
+import { PostEntity } from './posts/post.entity';
 
 import { internet, name, random, lorem } from 'faker';
 
@@ -9,7 +9,7 @@ import { internet, name, random, lorem } from 'faker';
 export class Seed{
 
   private users: Array<User>;
-    private posts: Array<Partial<Post>>;
+    private posts: Array<Partial<PostEntity>>;
     constructor(
         private readonly entityManager: EntityManager){
             this.users = []
@@ -25,11 +25,11 @@ async fakeIt<T>(entity: any): Promise<void> {
             entity,
             (savedData: Array<User>) => (this.users = savedData),
           );
-        case Post:
+        case PostEntity:
           return this.addData(
             this.postData(),
             entity,
-            (savedData: Array<Partial<Post>>) => (this.posts = savedData),
+            (savedData: Array<Partial<PostEntity>>) => (this.posts = savedData),
           );
         default:
             break;
@@ -47,8 +47,8 @@ private userData(): Array<Partial<User>>{
         }
      });
 }
-private postData(): Array<Partial<Post>> {
-    return Array.from({length: 5}).map<Partial<Post>>(() => ({
+private postData(): Array<Partial<PostEntity>> {
+    return Array.from({length: 5}).map<Partial<PostEntity>>(() => ({
       Body: lorem.paragraphs(),
       Title: lorem.words(),
       user: random.arrayElement(this.users)

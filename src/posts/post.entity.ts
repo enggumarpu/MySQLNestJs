@@ -3,7 +3,7 @@ import { User } from '../users/user.entity';
 import { File } from './../files/file.entity';
 
 @Entity({ name: 'posts' })
-export class Post extends BaseEntity{
+export class PostEntity extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id: number

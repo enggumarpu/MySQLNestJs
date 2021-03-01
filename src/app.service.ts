@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
-import { Post } from './posts/post.entity';
+import { PostEntity } from './posts/post.entity';
 import { Seed } from './seed.class';
 import { User } from './users/user.entity';
 
@@ -18,6 +18,6 @@ export class AppService extends Seed {
 
   private async fakeData() : Promise<void>{
     await  this.fakeIt(User);
-    await  this.fakeIt(Post);
+    await  this.fakeIt(PostEntity);
   }
 }

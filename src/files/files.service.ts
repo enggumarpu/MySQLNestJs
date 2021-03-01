@@ -45,8 +45,13 @@ export class FilesService {
       Extension: mimetype.split('/')[1], // mimetype: 'image/jpeg'
     };
   }
+  // async getImageFile(imagename: string, response: Response){
 
+  // }
   remove(id: number) {
     return `This action removes a #${id} file`;
   }
+
+
+
 }

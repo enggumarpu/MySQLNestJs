@@ -1,7 +1,7 @@
 import { NotFoundException } from "@nestjs/common";
 import { EntityRepository, Repository } from "typeorm";
 import { User } from './user.entity';
-import { Post } from './../posts/post.entity';
+import { PostEntity } from './../posts/post.entity';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User>{
@@ -18,7 +18,7 @@ export class UserRepository extends Repository<User>{
     async getAllUsers(){
         return this.find();
     }
-    async getPostsOfUser(id: number): Promise<Post[]>{
+    async getPostsOfUser(id: number): Promise<PostEntity[]>{
         // const allUserPosts  =  await Post.findOne({ id: id });
         // if(!allUserPosts){
         //     throw new NotFoundException(`User with given ${id} was not found`);   
@@ -30,7 +30,7 @@ export class UserRepository extends Repository<User>{
         //     .getMany();
 
         // return allUserPosts;
-        const allUserPosts = await Post.createQueryBuilder("post")
+        const allUserPosts = await PostEntity.createQueryBuilder("post")
             .leftJoinAndSelect("post.user", "user")
             .where("user.id = :id", { id: id })
             .getMany();

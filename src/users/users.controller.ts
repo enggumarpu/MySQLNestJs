@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { Post } from './../posts/post.entity';
+import { PostEntity } from './../posts/post.entity';
 
 
 
@@ -18,7 +18,7 @@ export class UsersController {
         return this.userService.getAllUsers();
     }
     @Get(':id')
-     getPostsOfUser(@Param('id') id: number): Promise<Post[]>{
+     getPostsOfUser(@Param('id') id: number): Promise<PostEntity[]>{
          return this.userService.getPostsOfUser(id);
      }
 }

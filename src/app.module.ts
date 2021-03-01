@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { PostsModule } from './posts/posts.module';
-import { Post } from './posts/post.entity';
+import { PostEntity } from './posts/post.entity';
 import { File } from './files/file.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { FilesModule } from './files/files.module';
@@ -21,7 +21,7 @@ import { FilesModule } from './files/files.module';
       dropSchema: true,
       password: '030698',
       database: 'testnest',
-      entities: [User, Post, File],
+      entities: [User, PostEntity, File],
       synchronize: true,
     }),
     MulterModule.register({

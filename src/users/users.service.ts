@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
-import { Post } from './../posts/post.entity';
+import { PostEntity } from './../posts/post.entity';
 
 
 
@@ -20,7 +20,7 @@ export class UsersService {
     // async getPostsOfUser(id: number): Promise<Post>{
     //     return this.userRepo.getPostsOfUser(id);
     // }
-    async getPostsOfUser(id: number): Promise<Post[]>{
+    async getPostsOfUser(id: number): Promise<PostEntity[]>{
              return this.userRepo.getPostsOfUser(id);
         }
 
