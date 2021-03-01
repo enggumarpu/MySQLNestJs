@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
+import { FileInterceptor,  } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { FilesService } from './files.service';
+import { Response } from 'express';
+import { join } from 'path';
+=======
 import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, HttpException, HttpStatus } from '@nestjs/common';
 import { FileInterceptor,  } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -5,6 +13,7 @@ import { FilesService } from './files.service';
 import * as mime from 'mime-types';
 
 
+>>>>>>> 819e1f1f80d9fed57e07176858157600a29b62e9
 
 
 
@@ -87,6 +96,18 @@ async uploadFile(@UploadedFile() file){
   
   return response;
 }
+// @Post('uploads/:imagename')
+// async getImageFile(@Param('imagename') imagename: string, @Res() response: Response){
+//   //return this.filesService.getImageFile(imagename, response);
+//   return response.sendFile(join(process.cwd(), 'uploads/' + imagename));
+// }
+
+//'C:\Users\Umar\Documents\GitHub\MySQLNestJs\uploads\hello.txt
+//this is the path the function is following. 
+@Get('uploads/:fileId')
+  async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
+    res.sendFile(fileId, { root: 'uploads'});
+  }
 
 // async uploadMultipleFiles(@UploadedFile() files) {
 //   const response = [];
