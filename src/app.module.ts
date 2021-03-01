@@ -19,7 +19,7 @@ import { FilesModule } from './files/files.module';
       port: 3306,
       username: 'root',
       dropSchema: true,
-      password: '030698',
+      password: '5454',
       database: 'testnest',
       entities: [User, PostEntity, File],
       synchronize: true,

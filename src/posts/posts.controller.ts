@@ -30,4 +30,5 @@ export class PostsController {
     //     return this.postService.getPostsOfUser(id);
     // }
     
+    
 }

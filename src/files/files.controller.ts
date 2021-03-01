@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, HttpException, HttpStatus } from '@nestjs/common';
 import { FileInterceptor,  } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
-import { Response } from 'express';
-import { join } from 'path';
+import * as mime from 'mime-types';
+
+
 
 
 
@@ -49,6 +50,18 @@ export class FilesController {
 // }
 @UseInterceptors(
   FileInterceptor('image', {
+    // Check the mimetypes to allow for upload
+    fileFilter: (req: any, file: any, cb: any) => {
+      if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+          // Allow storage of file
+          cb(null, true);
+      } else {
+          // Reject file
+          //let ext = mime.extension(file.mimetype);
+          
+          cb(new HttpException(`Unsupported file type ${file.originalname}`, HttpStatus.BAD_REQUEST), false);
+      }
+  },
     storage: diskStorage({
       destination: './uploads',
       filename: (req, file, callback) => {
@@ -58,16 +71,10 @@ export class FilesController {
           callback(null, `${name}-${randomName}.${fileExtName}`);
       }
     }),
-    // fileFilter: () => (req, file, callback) => {
-    //   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    //     return callback(new Error('Only image files are allowed!'), false);
-    //   }
-    //   callback(null, true);
-    // },
     limits: {
       //fileSize: 1e7, // the max file size in bytes, here it's 100MB,
       files: 1,
-    }
+    },
   }),
 )
 @Post('upload')
@@ -80,17 +87,20 @@ async uploadFile(@UploadedFile() file){
   
   return response;
 }
-// @Post('uploads/:imagename')
-// async getImageFile(@Param('imagename') imagename: string, @Res() response: Response){
-//   //return this.filesService.getImageFile(imagename, response);
-//   return response.sendFile(join(process.cwd(), 'uploads/' + imagename));
+
+// async uploadMultipleFiles(@UploadedFile() files) {
+//   const response = [];
+//   files.forEach(file => {
+//     const fileReponse = {
+//       originalname: file.originalname,
+//       filename: file.filename,
+//     };
+//     response.push(fileReponse);
+//   });
+//   return response;
 // }
 
-//'C:\Users\Umar\Documents\GitHub\MySQLNestJs\uploads\hello.txt
-//this is the path the function is following. 
-@Get('uploads/:fileId')
-  async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
-    res.sendFile(fileId, { root: 'uploads'});
-  }
+
+
 
 }
