@@ -1,6 +1,8 @@
 import { EntityManager } from "typeorm";
 import { User, Roles } from './users/user.entity';
 import { PostEntity } from './posts/post.entity';
+import * as bcrypt from 'bcrypt';
+
 
 import { internet, name, random, lorem } from 'faker';
 
@@ -36,11 +38,12 @@ async fakeIt<T>(entity: any): Promise<void> {
     }
  }
  
-private userData(): Array<Partial<User>>{
+private userData (): Array<Partial<User>>{
 
      return Array.from({length: 5}).map<Partial<User>>(() => {
         return{
             FirstName: name.firstName(),
+            Password: '$2y$12$hn3EFddyW9w.hSFUWJDvd.Du/blzqB4Aq5FU0GhNNNsZu2j5uFMV.', 
             Role: random.arrayElement([Roles.user, Roles.admin, Roles.user, Roles.user, Roles.user]),
             LastName: name.lastName(),
             Email: internet.email()

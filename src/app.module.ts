@@ -9,6 +9,7 @@ import { PostEntity } from './posts/post.entity';
 import { File } from './files/file.entity';
 import { MulterModule } from '@nestjs/platform-express';
 import { FilesModule } from './files/files.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -18,8 +19,8 @@ import { FilesModule } from './files/files.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      dropSchema: true,
-      password: '5454',
+      //dropSchema: true,
+      password: '030698',
       database: 'testnest',
       entities: [User, PostEntity, File],
       synchronize: true,
@@ -29,7 +30,8 @@ import { FilesModule } from './files/files.module';
     }),
     UsersModule,
     PostsModule,
-    FilesModule
+    FilesModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

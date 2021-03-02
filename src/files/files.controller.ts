@@ -1,20 +1,9 @@
-<<<<<<< HEAD
-import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, Res, HttpException, HttpStatus } from '@nestjs/common';
 import { FileInterceptor,  } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { join } from 'path';
-=======
-import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, HttpException, HttpStatus } from '@nestjs/common';
-import { FileInterceptor,  } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { FilesService } from './files.service';
-import * as mime from 'mime-types';
-
-
->>>>>>> 819e1f1f80d9fed57e07176858157600a29b62e9
-
 
 
 @Controller('files')

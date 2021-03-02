@@ -28,15 +28,11 @@ export class File extends BaseEntity{
       @JoinColumn({ name: 'User_id' })
       user: User;
 
-<<<<<<< HEAD
-      @ManyToOne(
+
+
+    @ManyToOne(
         () => PostEntity,
         (post: PostEntity) => post.files,
-=======
-    @ManyToOne(
-        () => Post,
-        (post: Post) => post.files,
->>>>>>> 819e1f1f80d9fed57e07176858157600a29b62e9
         { onUpdate: 'CASCADE', onDelete: 'CASCADE' },
       )
       @JoinColumn({ name: 'Post_id' })

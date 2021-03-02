@@ -11,13 +11,16 @@ export enum Roles {
 export class User extends BaseEntity{
     
     @PrimaryGeneratedColumn()
-    id: number;
+    UserId: number;
 
     @Column()
     FirstName: string;
 
     @Column()
     LastName: string;
+
+    @Column()
+    Password: string;
 
     @Column({length: 50, unique: true})
     Email: string
